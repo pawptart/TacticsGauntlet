@@ -32,3 +32,7 @@ class Tile(Entity):
     @classmethod
     def highlight(cls, game):
         return Tile('highlight', game)
+
+    @classmethod
+    def drop_shadow(cls, game):
+        return Tile('drop_shadow', game)
