@@ -2,6 +2,7 @@ from renderers.base_renderer import BaseRenderer
 from renderers.character_renderer import CharacterRenderer
 from renderers.scenery_renderer import SceneryRenderer
 from data.objects.tile import Tile
+from data.metadata.point import Point
 import os
 
 
@@ -19,6 +20,8 @@ class TerrainRenderer(BaseRenderer):
         self.DROP_SHADOW = Tile.drop_shadow(self.game).sprite()
         self.HIGHLIGHT = Tile.highlight(self.game).sprite()
 
+        self.last_selected = Point(0, 0)
+
     def render(self, data):
         for y in range(0, len(data.terrain)):
             for x in range(0, len(data.terrain[y])):
@@ -34,6 +37,12 @@ class TerrainRenderer(BaseRenderer):
                 self.screen.blit(tile, tile_pos)
 
                 if self.tile_is_hovered(x, y, window_data):
+                    self.screen.blit(self.HIGHLIGHT, tile_pos)
+
+                if tile_data.IS_SELECTED or self.hovered_tile_is_clicked(x, y, window_data):
+                    data.terrain[self.last_selected.y][self.last_selected.x].IS_SELECTED = False
+                    data.terrain[y][x].IS_SELECTED = True
+                    self.last_selected = Point(x, y)
                     self.screen.blit(self.HIGHLIGHT, tile_pos)
 
                 # Render some debug text to the screen
@@ -73,6 +82,9 @@ class TerrainRenderer(BaseRenderer):
             return True
 
         return False
+
+    def hovered_tile_is_clicked(self, x, y, data):
+        return self.tile_is_hovered(x, y, data) and data.attributes.click
 
     def calculate_absolute_coords(self, x, y):
         x_pos = ( x - y ) * self.TILE_WIDTH_OFFSET + self.SCREEN_CENTER_POS[0] - self.TILE_WIDTH_OFFSET

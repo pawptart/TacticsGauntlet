@@ -37,14 +37,18 @@ class Game:
         # Execute main game loop while running
         while running:
 
-            Game.grab_window_details(data, screen_center)
-            Game.render(renderers, screen, data)
+            Game.set_default_data_window_attributes(data)
 
             # Grab events from the event queue
             for event in pygame.event.get():
                 # Exit the game loop if QUIT signal received
                 if event.type == pygame.QUIT:
                     running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    data.window.attributes.click = True
+            
+            Game.set_data_window_values(data, screen_center)
+            Game.render(renderers, screen, data)
 
     @classmethod
     def set_window_options(cls):
@@ -66,7 +70,11 @@ class Game:
         pygame.display.update()
 
     @classmethod
-    def grab_window_details(cls, data, screen_center):
+    def set_default_data_window_attributes(cls, data):
+        data.window.attributes.click = False
+
+    @classmethod
+    def set_data_window_values(cls, data, screen_center):
         mouse_x_pos, mouse_y_pos = pygame.mouse.get_pos()
 
         data.window.attributes.mouse_x_pos = mouse_x_pos
