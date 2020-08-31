@@ -1,3 +1,4 @@
+from data.metadata.window import Window
 from data.objects.terrain import Terrain
 
 class GameData:
@@ -5,3 +6,4 @@ class GameData:
         self.game = game
 
         self.terrain = Terrain(game).populate_terrain()
+        self.window = Window()

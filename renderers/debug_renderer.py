@@ -14,6 +14,7 @@ class DebugRenderer(BaseRenderer):
         if not DebugRenderer.DEBUG_ENABLED:
             return
 
+        self.data = data
         self.render_mouse_pos()
 
     def render_mouse_pos(self):

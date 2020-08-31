@@ -7,6 +7,8 @@ class Tile(Entity):
     BASE_WIDTH = 64
     BASE_HEIGHT = 64
 
+    TYPE = 'tile'
+
     def __init__(self, name, game):
         super().__init__(game)
 
@@ -26,3 +28,7 @@ class Tile(Entity):
     @classmethod
     def dark_tile(cls, game):
         return Tile('dark', game)
+
+    @classmethod
+    def highlight(cls, game):
+        return Tile('highlight', game)

@@ -3,12 +3,15 @@ import pygame
 
 
 class Entity:
-    def __init__(self, game, entity_type=''):
-        self.type = entity_type
+
+    TYPE = None
+
+    def __init__(self, game, sprite_name=''):
+        self.sprite_name = sprite_name
         self.game = game
 
     def sprite(self):
-        return self.game.image.load(Entity.sprite_path(self.type))
+        return self.game.image.load(Entity.sprite_path(self.sprite_name))
 
     @classmethod
     def sprite_path(cls, name):
@@ -16,4 +19,4 @@ class Entity:
 
     @classmethod
     def drop_shadow(cls, game):
-        return Entity(game, entity_type='drop_shadow')
+        return Entity(game, 'drop_shadow')

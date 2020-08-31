@@ -1,5 +1,6 @@
 import math
 import random
+from data.objects.empty import Empty
 from data.objects.team import Team
 from data.objects.scenery import Scenery
 
@@ -13,7 +14,7 @@ class Terrain:
     def __init__(self, game):
         self.game = game
         self.size = random.randint(self.TERRAIN_MIN_SIZE, self.TERRAIN_MAX_SIZE)
-        self.entities = [[None for _x in range(0, self.size)] for _y in range(0, self.size)]
+        self.entities = [[Empty(game) for _x in range(0, self.size)] for _y in range(0, self.size)]
 
         self.ENEMY_TEAM = Team(self.TEAM_SIZE, game, is_enemy=True)
         self.PLAYER_TEAM = Team(self.TEAM_SIZE, game)
@@ -47,7 +48,7 @@ class Terrain:
                     self.spawn(x, y, scenery)
 
     def spawn(self, spawn_x, spawn_y, entity):
-        if self.entities[spawn_y][spawn_x] != None:
+        if self.entities[spawn_y][spawn_x].TYPE != None:
             return False
         else:
             self.entities[spawn_y][spawn_x] = entity

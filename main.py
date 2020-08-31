@@ -1,6 +1,7 @@
 import os
 import pygame
 from data.game_data import GameData
+from data.objects.tile import Tile
 from renderers.terrain_renderer import TerrainRenderer
 from renderers.character_renderer import CharacterRenderer
 from renderers.menu_renderer import MenuRenderer
@@ -18,10 +19,10 @@ class Game:
         
         # Create an 800x600 window
         screen = pygame.display.set_mode((800, 600))
+        screen_center = (int(screen.get_width() / 2), int(screen.get_height() / 2))
         
         # Load the renderers
         terrain = TerrainRenderer(screen, pygame)
-        # character = CharacterRenderer(screen, pygame)
         menu = MenuRenderer(screen, pygame)
         debug = DebugRenderer(screen, pygame)
 
@@ -36,6 +37,7 @@ class Game:
         # Execute main game loop while running
         while running:
 
+            Game.grab_window_details(data, screen_center)
             Game.render(renderers, screen, data)
 
             # Grab events from the event queue
@@ -62,7 +64,14 @@ class Game:
 
         # Draw to screen
         pygame.display.update()
-     
+
+    @classmethod
+    def grab_window_details(cls, data, screen_center):
+        mouse_x_pos, mouse_y_pos = pygame.mouse.get_pos()
+
+        data.window.attributes.mouse_x_pos = mouse_x_pos
+        data.window.attributes.mouse_y_pos = mouse_y_pos
+
      
 # Run the game if started from CLI
 if __name__ == "__main__":
