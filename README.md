@@ -5,5 +5,5 @@ A Final Fantasy Tactics inspired turn-based tactics roguelike
   <img src="assets/characters/marche_walk_0.png">
 </p>
 <p align="center">
-  <img src="assets/external/screenshot_01.png">
+  <img src="assets/external/screenshot_02.png">
 </p>
