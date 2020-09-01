@@ -6,6 +6,7 @@ class Entity:
 
     TYPE = None
     IS_SELECTED = False
+    ACTIONS = []
 
     def __init__(self, game, sprite_name=''):
         self.sprite_name = sprite_name

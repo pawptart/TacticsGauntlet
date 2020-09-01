@@ -11,6 +11,7 @@ class MenuRenderer(BaseRenderer):
         if data.TILE_MENU_OPEN:
             # TODO: Change to a position next to the tile later
             menu_pos = (0, 0)
+            menu_text_offset = (5, 5)
             menu_tiles = Menu.character_menu(self.game)
 
             menu_tile_width = Menu.SPRITE_BASE_WIDTH
@@ -33,6 +34,15 @@ class MenuRenderer(BaseRenderer):
                     tile_pos = (menu_pos[0] + x_offset, menu_pos[1] + y_offset)
 
                     self.screen.blit(sprite, tile_pos)
+
+            entity_actions = data.TILE_CLICKED_ENTITY.ACTIONS
+
+            for y in range(0, len(entity_actions)):
+                text_pos = (Menu.FONT_PADDING, y * Menu.FONT_SIZE + Menu.FONT_PADDING)
+                action = entity_actions[y].capitalize()
+
+                action_text = Menu(None, self.game).FONT.render(action, True, Menu.FONT_COLOR)
+                self.screen.blit(action_text, text_pos)
 
     @classmethod
     def calculate_tile_rotation(cls, x, y, max_x, max_y):

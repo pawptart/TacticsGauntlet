@@ -19,6 +19,10 @@ class Character(Entity):
         self.walk_cycle_time = 1500 # milliseconds
         self.walk_cycle_sprite_count = 4
 
+        # TODO: Break these out into configurable stats
+        self.MOVE_DISTANCE = 5
+        self.ACTIONS = ['move', 'attack', 'item', 'wait']
+
     def sprite(self):
         character_name = self.name
 

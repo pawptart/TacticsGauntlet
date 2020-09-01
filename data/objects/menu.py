@@ -5,10 +5,15 @@ class Menu(Entity):
     SPRITE_BASE_WIDTH = 16
     SPRITE_BASE_HEIGHT = 16
 
+    FONT_SIZE = 20
+    FONT_COLOR = (25, 25, 25)
+    FONT_PADDING = 10
+
     def __init__(self, name, game, is_corner=False, is_side=False):
         super().__init__(game)
 
         self.name = name
+        self.FONT = game.font.SysFont(None, self.FONT_SIZE)
         self.IS_CORNER = is_corner
         self.IS_SIDE = is_side
 
