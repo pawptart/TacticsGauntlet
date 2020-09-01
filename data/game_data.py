@@ -6,4 +6,5 @@ class GameData:
         self.game = game
 
         self.terrain = Terrain(game).populate_terrain()
+        self.TILE_MENU_OPEN = False
         self.window = Window()

@@ -25,7 +25,7 @@ class Game:
         menu = MenuRenderer(screen, pygame)
         debug = DebugRenderer(screen, pygame)
 
-        renderers = [terrain, debug]
+        renderers = [terrain, menu, debug]
 
         # Seed the game data
         data = GameData(pygame)

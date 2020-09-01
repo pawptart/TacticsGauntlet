@@ -23,6 +23,9 @@ class TerrainRenderer(BaseRenderer):
         self.last_selected = Point(0, 0)
 
     def render(self, data):
+        new_click = data.window.attributes.click
+        tile_clicked = False
+
         for y in range(0, len(data.terrain)):
             for x in range(0, len(data.terrain[y])):
                 tile_pos = self.calculate_iso_tile_position(x, y)
@@ -40,8 +43,10 @@ class TerrainRenderer(BaseRenderer):
                     self.screen.blit(self.HIGHLIGHT, tile_pos)
 
                 if tile_data.IS_SELECTED or self.hovered_tile_is_clicked(x, y, window_data):
+                    tile_clicked = self.hovered_tile_is_clicked(x, y, window_data)
                     data.terrain[self.last_selected.y][self.last_selected.x].IS_SELECTED = False
                     data.terrain[y][x].IS_SELECTED = True
+                    data.TILE_MENU_OPEN = True
                     self.last_selected = Point(x, y)
                     self.screen.blit(self.HIGHLIGHT, tile_pos)
 
@@ -54,7 +59,10 @@ class TerrainRenderer(BaseRenderer):
                             CharacterRenderer(self.screen, self.game).render(tile_data, x, y)
                         elif tile_data.TYPE == 'scenery':
                             SceneryRenderer(self.screen, self.game).render(tile_data, x, y)
-                
+
+        if new_click and not tile_clicked:
+            data.terrain[self.last_selected.y][self.last_selected.x].IS_SELECTED = False
+            data.TILE_MENU_OPEN = False
 
     def render_drop_shadow(self, tile_pos):
         drop_shadow_pos = self.calculate_iso_tile_drop_shadow_position(*tile_pos)
