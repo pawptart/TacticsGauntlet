@@ -17,9 +17,8 @@ class Game:
         # Set the game window options
         Game.set_window_options()
         
-        # Create an 800x600 window
-        screen = pygame.display.set_mode((800, 600))
-        screen_center = (int(screen.get_width() / 2), int(screen.get_height() / 2))
+        # Create a 1200x800 window
+        screen = pygame.display.set_mode((1200, 800))
         
         # Load the renderers
         terrain = TerrainRenderer(screen, pygame)
@@ -47,7 +46,7 @@ class Game:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     data.window.attributes.click = True
             
-            Game.set_data_window_values(data, screen_center)
+            Game.set_data_window_values(data)
             Game.render(renderers, screen, data)
 
     @classmethod
@@ -74,7 +73,7 @@ class Game:
         data.window.attributes.click = False
 
     @classmethod
-    def set_data_window_values(cls, data, screen_center):
+    def set_data_window_values(cls, data):
         mouse_x_pos, mouse_y_pos = pygame.mouse.get_pos()
 
         data.window.attributes.mouse_x_pos = mouse_x_pos
