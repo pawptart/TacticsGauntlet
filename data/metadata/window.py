@@ -5,7 +5,8 @@ class Window:
     ATTRIBUTES = {
         'mouse_x_pos': 0,
         'mouse_y_pos': 0,
-        'click': False
+        'click': False,
+        'click_handled': False
     }
 
     def __init__(self):
