@@ -1,5 +1,6 @@
 import math
 import random
+import pygame
 from data.objects.empty import Empty
 from data.objects.team import Team
 from data.objects.scenery import Scenery
@@ -11,13 +12,12 @@ class Terrain:
     TEAM_SIZE = random.randint(5, 10)
     SCENERY_POPULATION_PERCENTAGE = 5 # percent
 
-    def __init__(self, game):
-        self.game = game
+    def __init__(self):
         self.size = random.randint(self.TERRAIN_MIN_SIZE, self.TERRAIN_MAX_SIZE)
-        self.entities = [[Empty(game) for _x in range(0, self.size)] for _y in range(0, self.size)]
+        self.entities = [[Empty() for _x in range(0, self.size)] for _y in range(0, self.size)]
 
-        self.ENEMY_TEAM = Team(self.TEAM_SIZE, game, is_enemy=True)
-        self.PLAYER_TEAM = Team(self.TEAM_SIZE, game)
+        self.ENEMY_TEAM = Team(self.TEAM_SIZE, is_enemy=True)
+        self.PLAYER_TEAM = Team(self.TEAM_SIZE)
 
     def populate_terrain(self):
         self.populate_characters()
@@ -44,7 +44,7 @@ class Terrain:
                     pass
 
                 if random.randint(0, 100) < self.SCENERY_POPULATION_PERCENTAGE:
-                    scenery = Scenery.random(self.game)
+                    scenery = Scenery.random()
                     self.spawn(x, y, scenery)
 
     def spawn(self, spawn_x, spawn_y, entity):

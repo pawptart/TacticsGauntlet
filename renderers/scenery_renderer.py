@@ -2,18 +2,19 @@ from renderers.base_renderer import BaseRenderer
 from data.objects.scenery import Scenery
 from data.objects.tile import Tile
 import os
+import pygame
 
 
 class SceneryRenderer(BaseRenderer):
-    def __init__(self, screen, game):
-        super().__init__(screen, game)
+    def __init__(self, screen):
+        super().__init__(screen)
 
     def render(self, data, x, y):
-        scenery = Scenery(data.name, self.game)
+        scenery = Scenery(data.name)
         scenery_pos = self.calculate_iso_scenery_position(x, y)
 
         if scenery.needs_drop_shadow:
-            drop_shadow = Scenery.drop_shadow(self.game)
+            drop_shadow = Scenery.drop_shadow()
             drop_shadow_pos = self.calculate_iso_drop_shadow_position(*scenery_pos)
             self.screen.blit(drop_shadow.sprite(), drop_shadow_pos)
 

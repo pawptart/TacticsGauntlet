@@ -1,4 +1,5 @@
 import os
+import pygame
 from data.objects.entity import Entity
 
 class Menu(Entity):
@@ -9,23 +10,23 @@ class Menu(Entity):
     FONT_COLOR = (25, 25, 25)
     FONT_PADDING = 10
 
-    def __init__(self, name, game, is_corner=False, is_side=False):
-        super().__init__(game)
+    def __init__(self, name, is_corner=False, is_side=False):
+        super().__init__()
 
         self.name = name
-        self.FONT = game.font.SysFont(None, self.FONT_SIZE)
+        self.FONT = pygame.font.SysFont(None, self.FONT_SIZE)
         self.IS_CORNER = is_corner
         self.IS_SIDE = is_side
 
     def sprite(self):
-        return self.game.image.load(Menu.sprite_path(self.name))
+        return pygame.image.load(Menu.sprite_path(self.name))
 
     @classmethod
-    def character_menu(cls, game):
-        return Menu.build_menu(10, 6, game)
+    def character_menu(cls):
+        return Menu.build_menu(10, 6)
     
     @classmethod
-    def build_menu(cls, tile_size_x, tile_size_y, game):
+    def build_menu(cls, tile_size_x, tile_size_y):
         menu_tiles = []
 
         for y in range(0, tile_size_y):
@@ -33,11 +34,11 @@ class Menu(Entity):
 
             for x in range(0, tile_size_x):
                 if x in [0, tile_size_x - 1] and y in [0, tile_size_y - 1]:
-                    row.append(Menu.corner_tile(game))
+                    row.append(Menu.corner_tile())
                 elif x in [0, tile_size_x - 1] or y in [0, tile_size_y - 1]:
-                    row.append(Menu.side_tile(game))
+                    row.append(Menu.side_tile())
                 else:
-                    row.append(Menu.fill_tile(game))
+                    row.append(Menu.fill_tile())
 
             menu_tiles.append(row)
 
@@ -48,13 +49,13 @@ class Menu(Entity):
         return os.path.join('assets', 'static', name + '.png')
     
     @classmethod
-    def corner_tile(cls, game):
-        return Menu('menu_corner', game, is_corner=True)
+    def corner_tile(cls):
+        return Menu('menu_corner', is_corner=True)
 
     @classmethod
-    def side_tile(cls, game):
-        return Menu('menu_side', game, is_side=True)
+    def side_tile(cls):
+        return Menu('menu_side', is_side=True)
 
     @classmethod
-    def fill_tile(cls, game):
-        return Menu('menu_fill', game)
+    def fill_tile(cls):
+        return Menu('menu_fill')

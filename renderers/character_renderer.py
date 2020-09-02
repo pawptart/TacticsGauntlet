@@ -2,16 +2,17 @@ from renderers.base_renderer import BaseRenderer
 from data.objects.character import Character
 from data.objects.tile import Tile
 import os
+import pygame
 
 
 class CharacterRenderer(BaseRenderer):
-    def __init__(self, screen, game):
-        super().__init__(screen, game)
+    def __init__(self, screen):
+        super().__init__(screen)
 
     def render(self, data, x, y):
-        character = Character(data.name, self.game, should_walk=True)
+        character = Character(data.name, should_walk=True)
 
-        drop_shadow = Character.drop_shadow(self.game)
+        drop_shadow = Character.drop_shadow()
         character_pos = self.calculate_iso_character_position(x, y)
         drop_shadow_pos = self.calculate_iso_drop_shadow_position(*character_pos)
 

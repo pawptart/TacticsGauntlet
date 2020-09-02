@@ -1,18 +1,19 @@
 from renderers.base_renderer import BaseRenderer
 from data.objects.menu import Menu
 import os
+import pygame
 
 
 class MenuRenderer(BaseRenderer):
-    def __init__(self, screen, game):
-        super().__init__(screen, game)
+    def __init__(self, screen):
+        super().__init__(screen)
 
     def render(self, data):
         if data.TILE_MENU_OPEN:
             # TODO: Change to a position next to the tile later
             menu_pos = (0, 0)
             menu_text_offset = (5, 5)
-            menu_tiles = Menu.character_menu(self.game)
+            menu_tiles = Menu.character_menu()
 
             menu_tile_width = Menu.SPRITE_BASE_WIDTH
             menu_tile_height = Menu.SPRITE_BASE_HEIGHT
@@ -26,7 +27,7 @@ class MenuRenderer(BaseRenderer):
                     tile_rotation = MenuRenderer.calculate_tile_rotation(x, y, max_x, max_y)
 
                     if tile.IS_CORNER or tile.IS_SIDE:
-                        sprite = self.game.transform.rotate(tile.sprite(), tile_rotation)
+                        sprite = pygame.transform.rotate(tile.sprite(), tile_rotation)
                     else:
                         sprite = tile.sprite()
 
@@ -41,7 +42,7 @@ class MenuRenderer(BaseRenderer):
                 text_pos = (Menu.FONT_PADDING, y * Menu.FONT_SIZE + Menu.FONT_PADDING)
                 action = entity_actions[y].capitalize()
 
-                action_text = Menu(None, self.game).FONT.render(action, True, Menu.FONT_COLOR)
+                action_text = Menu(None).FONT.render(action, True, Menu.FONT_COLOR)
                 self.screen.blit(action_text, text_pos)
 
     @classmethod

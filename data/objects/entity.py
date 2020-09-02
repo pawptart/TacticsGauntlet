@@ -8,17 +8,16 @@ class Entity:
     IS_SELECTED = False
     ACTIONS = []
 
-    def __init__(self, game, sprite_name=''):
+    def __init__(self, sprite_name=''):
         self.sprite_name = sprite_name
-        self.game = game
 
     def sprite(self):
-        return self.game.image.load(Entity.sprite_path(self.sprite_name))
+        return pygame.image.load(Entity.sprite_path(self.sprite_name))
 
     @classmethod
     def sprite_path(cls, name):
         return os.path.join('assets', 'shared', name + '.png')
 
     @classmethod
-    def drop_shadow(cls, game):
-        return Entity(game, 'drop_shadow')
+    def drop_shadow(cls):
+        return Entity('drop_shadow')

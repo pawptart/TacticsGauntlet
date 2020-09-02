@@ -4,6 +4,7 @@ from renderers.scenery_renderer import SceneryRenderer
 from data.objects.tile import Tile
 from data.metadata.point import Point
 import os
+import pygame
 
 
 class TerrainRenderer(BaseRenderer):
@@ -12,13 +13,13 @@ class TerrainRenderer(BaseRenderer):
     TILE_WIDTH_OFFSET = int(Tile.BASE_WIDTH / 2)
     TILE_HEIGHT_OFFSET = int(Tile.BASE_HEIGHT / 4)
 
-    def __init__(self, screen, game):
-        super().__init__(screen, game)
+    def __init__(self, screen):
+        super().__init__(screen)
 
-        self.LIGHT_TILE = Tile.light_tile(self.game).sprite()
-        self.DARK_TILE = Tile.dark_tile(self.game).sprite()
-        self.DROP_SHADOW = Tile.drop_shadow(self.game).sprite()
-        self.HIGHLIGHT = Tile.highlight(self.game).sprite()
+        self.LIGHT_TILE = Tile.light_tile().sprite()
+        self.DARK_TILE = Tile.dark_tile().sprite()
+        self.DROP_SHADOW = Tile.drop_shadow().sprite()
+        self.HIGHLIGHT = Tile.highlight().sprite()
 
         self.last_selected = Point(0, 0)
 
@@ -54,9 +55,9 @@ class TerrainRenderer(BaseRenderer):
 
                 if tile_data:
                         if tile_data.TYPE == 'character':
-                            CharacterRenderer(self.screen, self.game).render(tile_data, x, y)
+                            CharacterRenderer(self.screen).render(tile_data, x, y)
                         elif tile_data.TYPE == 'scenery':
-                            SceneryRenderer(self.screen, self.game).render(tile_data, x, y)
+                            SceneryRenderer(self.screen).render(tile_data, x, y)
 
         if new_click and not tile_clicked:
             self.unset_data_tile_clicked(x, y, data)

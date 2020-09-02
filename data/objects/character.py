@@ -10,8 +10,8 @@ class Character(Entity):
 
     TYPE = 'character'
 
-    def __init__(self, name, game, should_walk=False, can_walk=True):
-        super().__init__(game)
+    def __init__(self, name, should_walk=False, can_walk=True):
+        super().__init__()
 
         self.name = name
         self.can_walk = can_walk
@@ -32,10 +32,10 @@ class Character(Entity):
         elif self.can_walk:
             character_name = character_name + '_walk_0'
 
-        return self.game.image.load(Character.sprite_path(character_name))
+        return pygame.image.load(Character.sprite_path(character_name))
 
     def walk_cycle(self):
-        ticks = self.game.time.get_ticks()
+        ticks = pygame.time.get_ticks()
         cycle_position = ticks % (self.walk_cycle_time)
         sprite_count = math.floor((cycle_position / self.walk_cycle_time) * self.walk_cycle_sprite_count)
 
@@ -46,9 +46,9 @@ class Character(Entity):
         return os.path.join('assets', 'characters', name + '.png')
 
     @classmethod
-    def player(cls, game):
-        return Character('marche', game, should_walk=True)
+    def player(cls):
+        return Character('marche', should_walk=True)
 
     @classmethod
-    def drop_shadow(cls, game):
-        return Entity.drop_shadow(game)
+    def drop_shadow(cls):
+        return Entity.drop_shadow()

@@ -21,14 +21,14 @@ class Game:
         screen = pygame.display.set_mode((1200, 800))
         
         # Load the renderers
-        terrain = TerrainRenderer(screen, pygame)
-        menu = MenuRenderer(screen, pygame)
-        debug = DebugRenderer(screen, pygame)
+        terrain = TerrainRenderer(screen)
+        menu = MenuRenderer(screen)
+        debug = DebugRenderer(screen)
 
         renderers = [terrain, menu, debug]
 
         # Seed the game data
-        data = GameData(pygame)
+        data = GameData()
 
         # Set a flag to run the game
         running = True

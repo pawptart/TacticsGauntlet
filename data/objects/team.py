@@ -1,13 +1,13 @@
 import random
+import pygame
 from data.objects.character import Character
 
 class Team:
     PLAYER_CHARACTERS = ['marche']
     ENEMY_CHARACTERS = ['thief']
 
-    def __init__(self, size, game, is_enemy=False):
+    def __init__(self, size, is_enemy=False):
         self.size = size
-        self.game = game
         self.is_enemy = is_enemy
         self.characters = self.set_characters()
 
@@ -16,7 +16,7 @@ class Team:
         characters = []
 
         for _value in range(0, self.size):
-            character = Character(random.choice(valid_characters), self.game, should_walk=True)
+            character = Character(random.choice(valid_characters), should_walk=True)
             characters.append(character)
         
         return characters
